@@ -49,28 +49,35 @@
 <div class="col-md-6 col-sm-6 create-new-account">
 	<h4 class="checkout-subtitle">create a new account</h4>
 	<p class="text title-tag-line">Create your own Unicase account.</p>
-	<form class="register-form outer-top-xs" action="/signup" method="POST" role="form">
+	<form class="register-form outer-top-xs" method="POST" role="form">
+		{{ form.hidden_tag() }}
 		<div class="form-group">
-	    	<label class="info-title" for="exampleInputEmail2">First Name <span>*</span></label>
+	    	<!-- <label class="info-title" for="exampleInputEmail2">First Name <span>*</span></label> -->
+			{{ form.firstname.label() }}<span> *</span>
 	    	<input type="text" class="form-control unicase-form-control text-input" name="firstname" id="firstname" >
 	  	</div>
 		<div class="form-group">
-	    	<label class="info-title" for="exampleInputEmail2">Last Name <span>*</span></label>
+	    	<!-- <label class="info-title" for="exampleInputEmail2">Last Name <span>*</span></label> -->
+			{{ form.lastname.label() }}<span> *</span>
 	    	<input type="text" class="form-control unicase-form-control text-input" name="lastname" id="lastname" >
 	  	</div>
 		  <div class="form-group">
-	    	<label class="info-title" for="exampleInputEmail2">Mobile No <span>*</span></label>
+	    	<!-- <label class="info-title" for="exampleInputEmail2">Mobile No <span>*</span></label> -->
+			{{ form.mobile_no.label() }}<span> *</span>
 	    	<input type="text" class="form-control unicase-form-control text-input" name="mobile_no" id="mobile_no" >
 	  	</div>  
 		<div class="form-group">
-	    	<label class="info-title" for="exampleInputEmail2">Email Address <span>*</span></label>
+	    	<!-- <label class="info-title" for="exampleInputEmail2">Email Address <span>*</span></label> -->
+			{{ form.email_id.label() }}<span> *</span>
 	    	<input type="email" class="form-control unicase-form-control text-input" name="email_id" id="email_id" >
 	  	</div>
 		<div class="form-group">
-	    	<label class="info-title" for="exampleInputEmail2">Password <span>*</span></label>
+	    	<!-- <label class="info-title" for="exampleInputEmail2">Password <span>*</span></label> -->
+			{{ form.password.label() }}<span> *</span>
 	    	<input type="password" class="form-control unicase-form-control text-input" name="password" id="password" >
 	  	</div>  
-	  	<button type="submit" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>
+		  {{ form.submit(class="btn-upper btn btn-primary checkout-page-button") }}
+	  	<!-- <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button> -->
 	</form>
 	<span class="checkout-subtitle outer-top-xs">Sign Up Today And You'll Be Able To :  </span>
 	<div class="checkbox">
