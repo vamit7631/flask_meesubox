@@ -36,15 +36,19 @@ def signup():
 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = UserModel.query.filter_by(email_id = form.email_id.data).first()
-        if not user or not check_password_hash(user.password, form.password.data):   
-            return redirect(url_for('signin'))
+    if not current_user.is_authenticated:
+        form = LoginForm()
+        if form.validate_on_submit():
+            user = UserModel.query.filter_by(email_id = form.email_id.data).first()
+            if not user or not check_password_hash(user.password, form.password.data):   
+                return redirect(url_for('signin'))
         
-        login_user(user, remember=True)
+            login_user(user, remember=True)
+            return redirect(url_for('index'))
+        return render_template('signin.html', form=form)
+    
+    else:
         return redirect(url_for('index'))
-    return render_template('signin.html', form=form)
 
 
 @app.route('/signout')
