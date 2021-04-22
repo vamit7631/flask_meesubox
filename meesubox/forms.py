@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import Length, EqualTo, Email, DataRequired
-from meesubox.models import UserModel
+from meesubox.models import UserModel, ProductItem
 
 class RegisterForm(FlaskForm):
     firstname = StringField(label='First Name', validators=[Length(min=2, max=30), DataRequired()])

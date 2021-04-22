@@ -1,6 +1,6 @@
 from meesubox import app
 from flask import render_template, redirect, url_for, flash
-from meesubox.models import UserModel
+from meesubox.models import UserModel, ProductItem
 from meesubox.forms import RegisterForm , LoginForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from meesubox import db
@@ -66,3 +66,9 @@ def wishlist():
 def cart_details():
     return render_template('shopping-cart.html')    
   
+
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard/index.html')    
+
