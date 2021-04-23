@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, IntegerField, BooleanField
-from wtforms.validators import Length, EqualTo, Email, DataRequired
+from wtforms.validators import Length, EqualTo, Email, DataRequired, Optional
 from meesubox.models import UserModel, ProductItem
 
 class RegisterForm(FlaskForm):
@@ -28,7 +28,7 @@ class AddProductDetails(FlaskForm):
     # sku_id 
     # store_id
     store_name = StringField(label='Store name', validators=[DataRequired()]) 
-    new_product = BooleanField(label='New product', validators=[DataRequired()]) 
+    new_product = BooleanField(validators=[Optional()], render_kw={'checked': False}) 
     # featured_product
-    best_seller = BooleanField(label='Best seller', validators=[DataRequired()])  
+    best_seller = BooleanField(validators=[Optional()], render_kw={'checked': False})  
     submit = SubmitField(label='Submit')    

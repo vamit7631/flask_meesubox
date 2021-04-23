@@ -1,19 +1,32 @@
 from meesubox import app
-from flask import render_template, redirect, url_for, flash
+from flask import render_template,request, redirect, url_for, flash
 from meesubox.models import UserModel, ProductItem
 from meesubox.forms import RegisterForm , LoginForm, AddProductDetails
 from werkzeug.security import generate_password_hash, check_password_hash
 from meesubox import db
 from flask_login import login_user, logout_user, login_required, current_user
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home_page():
-    return render_template('home.html')
+    if request.method == "GET":
+          new_product_items = ProductItem.query.filter_by(new_product = 1).all()
+    return render_template('home.html', new_product_items = new_product_items)
 
-@app.route('/home')
+
+@app.route('/home', methods=['GET', 'POST'])
 @login_required
 def login_home_page():
-    return render_template('home.html', name=current_user.firstname)    
+    if request.method == "GET":
+          new_product_items = ProductItem.query.filter_by(new_product = 1).all()
+        # product_items = db.session.query(ProductItem)
+
+        # for product_item in product_items:
+        #     print(product_item)
+    return render_template('home.html', name=current_user.firstname, new_product_items = new_product_items)
+
+
+
+
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
