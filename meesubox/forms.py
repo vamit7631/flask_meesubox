@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField, BooleanField
 from wtforms.validators import Length, EqualTo, Email, DataRequired
 from meesubox.models import UserModel, ProductItem
 
@@ -14,4 +14,21 @@ class RegisterForm(FlaskForm):
 class LoginForm(FlaskForm):
     email_id = StringField(label='Email Address', validators=[DataRequired()])
     password = PasswordField(label='Password', validators=[DataRequired()])
-    submit = SubmitField(label='Login')    
+    submit = SubmitField(label='Login')   
+
+
+class AddProductDetails(FlaskForm):
+    product_name = StringField(label='Product name', validators=[DataRequired()]) 
+    product_price = StringField(label='Product price', validators=[DataRequired()]) 
+    product_category = StringField(label='Product category', validators=[DataRequired()])
+    product_size = StringField(label='Product size', validators=[DataRequired()])
+    product_description = StringField(label='Product description', validators=[DataRequired()])
+    quantity = IntegerField(label='Quantity', validators=[DataRequired()])
+    product_discount = StringField(label='Product discount', validators=[DataRequired()]) 
+    # sku_id 
+    # store_id
+    store_name = StringField(label='Store name', validators=[DataRequired()]) 
+    new_product = BooleanField(label='New product', validators=[DataRequired()]) 
+    # featured_product
+    best_seller = BooleanField(label='Best seller', validators=[DataRequired()])  
+    submit = SubmitField(label='Submit')    

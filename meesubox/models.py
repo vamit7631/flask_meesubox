@@ -13,6 +13,7 @@ class UserModel(db.Model, UserMixin):
     mobile_no = db.Column(db.String(length=12), nullable=False, unique=True)
     email_id  = db.Column(db.String(length=200), nullable=False, unique=True)
     password = db.Column(db.String(length=200), nullable = False)
+    user_role = db.Column(db.String(length=200), nullable = False, default= 'buyer')
     date_created = db.Column(db.DateTime, default = datetime.utcnow)
 
     def __repr__(self):
@@ -20,21 +21,21 @@ class UserModel(db.Model, UserMixin):
 
 
 class ProductItem(db.Model):
-        id = db.Column(db.BigInteger(), primary_key=True)
-        product_name = db.Column(db.String(length=200), nullable=False)
-        product_category = db.Column(db.String(length=50), nullable=False)
-        product_size = db.Column(db.String(length=50), nullable=False)
-        product_description = db.Column(db.String(length=1000), nullable=False)
-        quantity = db.Column(db.Integer(), nullable=False)
-        product_price = db.Column(db.Float(), nullable=False)
-        product_discount = db.Column(db.Float(), nullable=False)
-        sku_id = db.Column(db.BigInteger(), nullable=False)
-        store_id = db.Column(db.BigInteger(), nullable=False)
-        store_name = db.Column(db.String(length=100), nullable=False)
-        new_product = db.Column(db.Boolean(), default=False)
-        featured_product = db.Column(db.Boolean(), default=False)
-        best_seller = db.Column(db.Boolean(), default=False)
-        date_created = db.Column(db.DateTime, default = datetime.utcnow)
+    product_id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
+    product_name = db.Column(db.String(length=200), nullable=False)
+    product_price = db.Column(db.String(length=200), nullable=False)
+    product_category = db.Column(db.String(length=50), nullable=False)
+    product_size = db.Column(db.String(length=50), nullable=False)
+    product_description = db.Column(db.String(length=1000), nullable=False)
+    quantity = db.Column(db.Integer(), nullable=False)
+    product_discount = db.Column(db.String(length=200), nullable=False)
+    # sku_id = db.Column(db.BigInteger(), nullable=False)
+    # store_id = db.Column(db.BigInteger(), nullable=False)
+    store_name = db.Column(db.String(length=100), nullable=False)
+    new_product = db.Column(db.Boolean(), default=False)
+    # featured_product = db.Column(db.Boolean(), default=False)
+    best_seller = db.Column(db.Boolean(), default=False)
+    date_created = db.Column(db.DateTime, default = datetime.utcnow)
 
-        def __repr__(self):
-            return f'ProductItem {self.id}'    
+    def __repr__(self):
+        return f'ProductItem {self.product_name}'    
