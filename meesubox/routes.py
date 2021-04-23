@@ -12,20 +12,12 @@ def home_page():
           new_product_items = ProductItem.query.filter_by(new_product = 1).all()
     return render_template('home.html', new_product_items = new_product_items)
 
-
 @app.route('/home', methods=['GET', 'POST'])
 @login_required
 def login_home_page():
     if request.method == "GET":
           new_product_items = ProductItem.query.filter_by(new_product = 1).all()
-        # product_items = db.session.query(ProductItem)
-
-        # for product_item in product_items:
-        #     print(product_item)
     return render_template('home.html', name=current_user.firstname, new_product_items = new_product_items)
-
-
-
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -87,6 +79,16 @@ def cart_details():
     return render_template('shopping-cart.html')    
 
 
+
+@app.route('/single-product/<int:product_id>', methods=['GET', 'POST'])
+@login_required
+def single_product(product_id):
+    if request.method == "GET":
+          product_item = ProductItem.query.filter_by(product_id = product_id).first()
+          print(product_item.product_name)
+    return render_template('single-product.html', product_item = product_item)
+
+
 @app.route('/dashboard')
 @login_required
 def dashboard():
@@ -94,6 +96,21 @@ def dashboard():
         return render_template('dashboard/index.html')    
     else:
         return redirect(url_for('login_home_page'))
+
+
+@app.route('/dashboard/product-list', methods=['GET', 'POST'])
+@login_required
+def product_list():
+    if current_user.is_authenticated and current_user.user_role == 'admin':
+        product_items = ProductItem.query.all()
+        print(product_items)
+        # for product_item in product_items:
+        #     print(product_item.product_name)
+
+        return render_template('dashboard/product-list.html', product_items = product_items)
+
+
+
 
 @app.route('/dashboard/add-product', methods=['GET', 'POST'])
 @login_required

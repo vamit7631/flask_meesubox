@@ -61,7 +61,16 @@
         #cellPaiChart{
             height: 160px;
         }
-
+        .add_product_btn{
+            background-color: #abd07e;
+            color: #fff;
+            padding: 5px 10px;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        .add_product_btn:hover{
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -76,7 +85,7 @@
                     <li class="menu-title">UI elements</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Products</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-puzzle-piece"></i><a href="{{ url_for('add_product') }}">Add New</a></li>
+                            <li><i class="fa fa-puzzle-piece"></i><a href="{{ url_for('product_list') }}">All Products</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
@@ -260,6 +269,22 @@
     {% block body %}
     {% endblock %}
 
+    <div class="clearfix"></div>
+
+    <footer class="site-footer">
+        <div class="footer-inner bg-white">
+            <div class="row">
+                <div class="col-sm-6">
+                    Copyright &copy; 2018 Ela Admin
+                </div>
+                <div class="col-sm-6 text-right">
+                    Designed by <a href="https://colorlib.com">Colorlib</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</div><!-- /#right-panel -->
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
