@@ -115,7 +115,7 @@ def delete_cart(product_id):
         try:
             db.session.delete(cart_items)
             db.session.commit()
-            return redirect(url_for('login_home_page'))
+            return redirect(url_for('cart_details'))
         except:
             print('There was an error for removing product in your cart')         
         
