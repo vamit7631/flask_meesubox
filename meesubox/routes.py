@@ -10,14 +10,16 @@ from flask_login import login_user, logout_user, login_required, current_user
 def home_page():
     if request.method == "GET":
           new_product_items = ProductItem.query.filter_by(new_product = 1).all()
-    return render_template('home.html', new_product_items = new_product_items)
+          best_product_items = ProductItem.query.filter_by(best_seller = 1).all()
+    return render_template('home.html', new_product_items = new_product_items, best_seller_items = best_product_items)
 
 @app.route('/home', methods=['GET', 'POST'])
 @login_required
 def login_home_page():
     if request.method == "GET":
           new_product_items = ProductItem.query.filter_by(new_product = 1).all()
-    return render_template('home.html', name=current_user.firstname, new_product_items = new_product_items)
+          best_product_items = ProductItem.query.filter_by(best_seller = 1).all()
+    return render_template('home.html', name=current_user.firstname, new_product_items = new_product_items, best_seller_items = best_product_items)
 
 
 @app.route('/signup', methods=['GET', 'POST'])

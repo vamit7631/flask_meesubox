@@ -187,15 +187,16 @@
 									<a href="single-product/{{ new_product_item.product_id }}" target="_blank"><img  src="{{ url_for('static', filename='images/blank.gif')}}" data-echo="{{ url_for('static', filename='images/products/h2-6.jpg')}}" alt=""></a>
 								</div><!-- /.image -->			
 					
-								<div class="tag new"><span>new</span></div>                        		   
+								<!-- <div class="tag new"><span>new</span></div>                        		    -->
 							</div><!-- /.product-image -->
 							<div class="product-info text-left">
-								<h3 class="name"><a href="single-product">{{ new_product_item.product_name }}</a></h3>
+								<h3 class="name"><a href="single-product/{{ new_product_item.product_id }}">{{ new_product_item.product_name }}</a></h3>
 								<div class="rating rateit-small"></div>
 								<div class="description"></div>
 					
 								<div class="product-price">	
 									<span class="price">
+										<span>Rs </span>
 										{{ new_product_item.product_price }}			
 									</span>
 									<span class="price-before-discount">$ 800</span>
@@ -1903,82 +1904,7 @@
 				<h3 class="section-title">best seller</h3>
 					<div class="row outer-top-xs">
 						
-						<div class="col-md-4 col-sm-6">
-							<div class="products">
-								
-								<div class="product">
-									<div class="product-micro">
-										<div class="row product-micro-row">
-											<div class="col col-xs-6">
-												<div class="product-image">
-													<div class="image">
-														<a href="{{ url_for('static', filename='images/products/md1.jpg')}}" data-lightbox="image-1" data-title="Nunc ullamcors">
-															<img data-echo="{{ url_for('static', filename='images/products/md1.jpg')}}" src="{{ url_for('static', filename='images/blank.gif')}}" alt="">
-															<div class="zoom-overlay"></div>
-														</a>					
-													</div><!-- /.image -->
-		
-												</div><!-- /.product-image -->
-											</div><!-- /.col -->
-											<div class="col col-xs-6">
-												<div class="product-info">
-													<h3 class="name"><a href="#">Simple Product Demo</a></h3>
-													<div class="rating rateit-small"></div>
-													<div class="product-price">	
-														<span class="price">
-															$650.99
-														</span>
-														<span class="price-before-discount">$800.00</span>
-		
-													</div><!-- /.product-price -->
-													<div class="action m-t-10"><a href="#" class="lnk btn btn-primary">Add To Cart</a></div>
-												</div>
-											</div><!-- /.col -->
-										</div><!-- /.product-micro-row -->
-									</div><!-- /.product-micro -->
-								</div>
-								
-							</div>
-						</div>
-						
-						<div class="col-md-4 col-sm-6">
-							<div class="products">
-								
-								<div class="product">
-									<div class="product-micro">
-										<div class="row product-micro-row">
-											<div class="col col-xs-6">
-												<div class="product-image">
-													<div class="image">
-														<a href="{{ url_for('static', filename='images/products/md2.jpg')}}" data-lightbox="image-1" data-title="Nunc ullamcors">
-															<img data-echo="{{ url_for('static', filename='images/products/md2.jpg')}}" src="{{ url_for('static', filename='images/blank.gif')}}" alt="">
-															<div class="zoom-overlay"></div>
-														</a>					
-													</div><!-- /.image -->
-		
-												</div><!-- /.product-image -->
-											</div><!-- /.col -->
-											<div class="col col-xs-6">
-												<div class="product-info">
-													<h3 class="name"><a href="#">Simple Product Demo</a></h3>
-													<div class="rating rateit-small"></div>
-													<div class="product-price">	
-														<span class="price">
-															$650.99
-														</span>
-														<span class="price-before-discount">$800.00</span>
-		
-													</div><!-- /.product-price -->
-													<div class="action m-t-10"><a href="#" class="lnk btn btn-primary">Add To Cart</a></div>
-												</div>
-											</div><!-- /.col -->
-										</div><!-- /.product-micro-row -->
-									</div><!-- /.product-micro -->
-								</div>
-								
-							</div>
-						</div>
-						
+						{% for best_seller_item in best_seller_items  %}
 						<div class="col-md-4 col-sm-6">
 							<div class="products">
 								
@@ -1998,11 +1924,12 @@
 											</div><!-- /.col -->
 											<div class="col col-xs-6">
 												<div class="product-info">
-													<h3 class="name"><a href="#">Simple Product Demo</a></h3>
+													<h3 class="name"><a href="#">{{ best_seller_item.product_name }}</a></h3>
 													<div class="rating rateit-small"></div>
 													<div class="product-price">	
 														<span class="price">
-															$650.99
+															<span>Rs </span>
+															{{ best_seller_item.product_price }}
 														</span>
 														<span class="price-before-discount">$800.00</span>
 		
@@ -2016,120 +1943,7 @@
 								
 							</div>
 						</div>
-						
-						<div class="col-md-4 col-sm-6">
-							<div class="products">
-								
-								<div class="product">
-									<div class="product-micro">
-										<div class="row product-micro-row">
-											<div class="col col-xs-6">
-												<div class="product-image">
-													<div class="image">
-														<a href="{{ url_for('static', filename='images/products/md1.jpg')}}" data-lightbox="image-1" data-title="Nunc ullamcors">
-															<img data-echo="{{ url_for('static', filename='images/products/md1.jpg')}}" src="{{ url_for('static', filename='images/blank.gif')}}" alt="">
-															<div class="zoom-overlay"></div>
-														</a>					
-													</div><!-- /.image -->
-		
-												</div><!-- /.product-image -->
-											</div><!-- /.col -->
-											<div class="col col-xs-6">
-												<div class="product-info">
-													<h3 class="name"><a href="#">Simple Product Demo</a></h3>
-													<div class="rating rateit-small"></div>
-													<div class="product-price">	
-														<span class="price">
-															$650.99
-														</span>
-														<span class="price-before-discount">$800.00</span>
-		
-													</div><!-- /.product-price -->
-													<div class="action m-t-10"><a href="#" class="lnk btn btn-primary">Add To Cart</a></div>
-												</div>
-											</div><!-- /.col -->
-										</div><!-- /.product-micro-row -->
-									</div><!-- /.product-micro -->
-								</div>
-								
-							</div>
-						</div>
-						
-						<div class="col-md-4 col-sm-6">
-							<div class="products">
-								
-								<div class="product">
-									<div class="product-micro">
-										<div class="row product-micro-row">
-											<div class="col col-xs-6">
-												<div class="product-image">
-													<div class="image">
-														<a href="{{ url_for('static', filename='images/products/md2.jpg')}}" data-lightbox="image-1" data-title="Nunc ullamcors">
-															<img data-echo="{{ url_for('static', filename='images/products/md2.jpg')}}" src="{{ url_for('static', filename='images/blank.gif')}}" alt="">
-															<div class="zoom-overlay"></div>
-														</a>					
-													</div><!-- /.image -->
-		
-												</div><!-- /.product-image -->
-											</div><!-- /.col -->
-											<div class="col col-xs-6">
-												<div class="product-info">
-													<h3 class="name"><a href="#">Simple Product Demo</a></h3>
-													<div class="rating rateit-small"></div>
-													<div class="product-price">	
-														<span class="price">
-															$650.99
-														</span>
-														<span class="price-before-discount">$800.00</span>
-		
-													</div><!-- /.product-price -->
-													<div class="action m-t-10"><a href="#" class="lnk btn btn-primary">Add To Cart</a></div>
-												</div>
-											</div><!-- /.col -->
-										</div><!-- /.product-micro-row -->
-									</div><!-- /.product-micro -->
-								</div>
-								
-							</div>
-						</div>
-						
-						<div class="col-md-4 col-sm-6">
-							<div class="products">
-								
-								<div class="product">
-									<div class="product-micro">
-										<div class="row product-micro-row">
-											<div class="col col-xs-6">
-												<div class="product-image">
-													<div class="image">
-														<a href="{{ url_for('static', filename='images/products/md3.jpg')}}" data-lightbox="image-1" data-title="Nunc ullamcors">
-															<img data-echo="{{ url_for('static', filename='images/products/md3.jpg')}}" src="{{ url_for('static', filename='images/blank.gif')}}" alt="">
-															<div class="zoom-overlay"></div>
-														</a>					
-													</div><!-- /.image -->
-		
-												</div><!-- /.product-image -->
-											</div><!-- /.col -->
-											<div class="col col-xs-6">
-												<div class="product-info">
-													<h3 class="name"><a href="#">Simple Product Demo</a></h3>
-													<div class="rating rateit-small"></div>
-													<div class="product-price">	
-														<span class="price">
-															$650.99
-														</span>
-														<span class="price-before-discount">$800.00</span>
-		
-													</div><!-- /.product-price -->
-													<div class="action m-t-10"><a href="#" class="lnk btn btn-primary">Add To Cart</a></div>
-												</div>
-											</div><!-- /.col -->
-										</div><!-- /.product-micro-row -->
-									</div><!-- /.product-micro -->
-								</div>
-								
-							</div>
-						</div>
+						{% endfor %}
 									</div>
 					
 				</section>
@@ -2259,79 +2073,7 @@
 				</div><!-- /.blog-slider-container -->
 			</section><!-- /.section -->
 		<!-- ============================================== BLOG SLIDER : END ============================================== -->
-		
-			  <!-- ============================================== BRANDS CAROUSEL ============================================== -->
-		<div id="brands-carousel" class="logo-slider wow fadeInUp">
-		
-				<h3 class="section-title">Our Brands</h3>
-				<div class="logo-slider-inner">	
-					<div id="brand-slider" class="owl-carousel brand-slider custom-carousel owl-theme">
-						<div class="item m-t-15">
-							<a href="#" class="image">
-								<img data-echo="{{ url_for('static', filename='images/brands/brand1.png')}}" src="{{ url_for('static', filename='images/blank.gif')}}" alt="">
-							</a>	
-						</div><!--/.item-->
-		
-						<div class="item m-t-10">
-							<a href="#" class="image">
-								<img data-echo="{{ url_for('static', filename='images/brands/brand2.png')}}" src="{{ url_for('static', filename='images/blank.gif')}}" alt="">
-							</a>	
-						</div><!--/.item-->
-		
-						<div class="item">
-							<a href="#" class="image">
-								<img data-echo="{{ url_for('static', filename='images/brands/brand3.png')}}" src="{{ url_for('static', filename='images/blank.gif')}}" alt="">
-							</a>	
-						</div><!--/.item-->
-		
-						<div class="item">
-							<a href="#" class="image">
-								<img data-echo="{{ url_for('static', filename='images/brands/brand4.png')}}" src="{{ url_for('static', filename='images/blank.gif')}}" alt="">
-							</a>	
-						</div><!--/.item-->
-		
-						<div class="item">
-							<a href="#" class="image">
-								<img data-echo="{{ url_for('static', filename='images/brands/brand5.png')}}" src="{{ url_for('static', filename='images/blank.gif')}}" alt="">
-							</a>	
-						</div><!--/.item-->
-		
-						<div class="item">
-							<a href="#" class="image">
-								<img data-echo="{{ url_for('static', filename='images/brands/brand6.png')}}" src="{{ url_for('static', filename='images/blank.gif')}}" alt="">
-							</a>	
-						</div><!--/.item-->
-		
-						<div class="item">
-							<a href="#" class="image">
-								<img data-echo="{{ url_for('static', filename='images/brands/brand2.png')}}" src="{{ url_for('static', filename='images/blank.gif')}}" alt="">
-							</a>	
-						</div><!--/.item-->
-		
-						<div class="item">
-							<a href="#" class="image">
-								<img data-echo="{{ url_for('static', filename='images/brands/brand4.png')}}" src="{{ url_for('static', filename='images/blank.gif')}}" alt="">
-							</a>	
-						</div><!--/.item-->
-		
-						<div class="item">
-							<a href="#" class="image">
-								<img data-echo="{{ url_for('static', filename='images/brands/brand1.png')}}" src="{{ url_for('static', filename='images/blank.gif')}}" alt="">
-							</a>	
-						</div><!--/.item-->
-		
-						<div class="item">
-							<a href="#" class="image">
-								<img data-echo="{{ url_for('static', filename='images/brands/brand5.png')}}" src="{{ url_for('static', filename='images/blank.gif')}}" alt="">
-							</a>	
-						</div><!--/.item-->
-					</div><!-- /.owl-carousel #logo-slider -->
-				</div><!-- /.logo-slider-inner -->
-			
-		</div><!-- /.logo-slider -->
-		<!-- ============================================== BRANDS CAROUSEL : END ============================================== -->	
-			
-		
+
 			</div><!-- /.container -->
 		</div><!-- /#top-banner-and-menu -->
 		
