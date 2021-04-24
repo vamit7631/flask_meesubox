@@ -40,3 +40,18 @@ class ProductItem(db.Model):
 
     def __repr__(self):
         return f'ProductItem {self.product_name}'    
+
+
+class CartDetails(db.Model):
+    cart_id = db.Column(db.Integer(), primary_key=True)
+    product_id = db.Column(db.Integer(), db.ForeignKey('product_item.product_id'))
+    product_name = db.Column(db.String(length=200), nullable=False)
+    product_price = db.Column(db.String(length=200), nullable=False)
+    product_category = db.Column(db.String(length=50), nullable=False)
+    product_size = db.Column(db.String(length=50), nullable=False)
+    quantity = db.Column(db.Integer(), nullable=False)
+    date_created = db.Column(db.DateTime, default = datetime.utcnow)
+    user_id = db.Column(db.Integer(), db.ForeignKey('user_model.id'))
+
+    def __repr__(self):
+        return f'CartDetails {self.product_name}'     

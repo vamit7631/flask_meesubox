@@ -1,6 +1,6 @@
 from meesubox import app
 from flask import render_template,request, redirect, url_for, flash
-from meesubox.models import UserModel, ProductItem
+from meesubox.models import UserModel, ProductItem, CartDetails
 from meesubox.forms import RegisterForm , LoginForm, AddProductDetails
 from werkzeug.security import generate_password_hash, check_password_hash
 from meesubox import db
@@ -59,7 +59,8 @@ def signin():
                     return redirect(url_for('login_home_page'))
 
         return render_template('signin.html', form=form)            
-
+    return render_template('signin.html', form=form)         
+    
 @app.route('/signout')
 @login_required
 def logout_page():
@@ -72,21 +73,56 @@ def logout_page():
 @login_required
 def wishlist():
     return render_template('wishlist.html')    
-
-@app.route('/cart-details')
-@login_required
-def cart_details():
-    return render_template('shopping-cart.html')    
-
-
+  
 
 @app.route('/single-product/<int:product_id>', methods=['GET', 'POST'])
 @login_required
 def single_product(product_id):
     if request.method == "GET":
           product_item = ProductItem.query.filter_by(product_id = product_id).first()
-          print(product_item.product_name)
     return render_template('single-product.html', product_item = product_item)
+
+
+@app.route('/add-cart-details/<int:product_id>', methods=['GET', 'POST'])
+@login_required
+def add_cart_details(product_id):
+    if request.method == "GET":
+        product_item = ProductItem.query.filter_by(product_id = product_id).first()
+        add_cart_details = CartDetails(product_id = product_item.product_id, product_name = product_item.product_name, product_price = product_item.product_price, product_category = product_item.product_category, product_size = product_item.product_size, quantity = product_item.quantity, user_id = current_user.id)
+        try:
+            db.session.add(add_cart_details)
+            db.session.commit()
+            return redirect(url_for('login_home_page'))
+        except:
+            print('There was an error for adding product in your cart')       
+        return render_template('shopping-cart.html')  
+
+
+
+@app.route('/cart-details', methods=['GET', 'POST'])
+@login_required
+def cart_details():
+    if request.method == "GET":
+        cart_items = CartDetails.query.filter_by(user_id = current_user.id).all()
+        return render_template('shopping-cart.html', cart_items = cart_items)
+
+
+@app.route('/delete-cart/<int:product_id>', methods=['GET', 'POST'])
+@login_required
+def delete_cart(product_id):
+    if request.method == "GET":
+        cart_items = CartDetails.query.filter_by(user_id = current_user.id, product_id = product_id).first()
+        try:
+            db.session.delete(cart_items)
+            db.session.commit()
+            return redirect(url_for('login_home_page'))
+        except:
+            print('There was an error for removing product in your cart')         
+        
+        return render_template('shopping-cart.html') 
+
+
+
 
 
 @app.route('/dashboard')
@@ -108,7 +144,8 @@ def product_list():
         #     print(product_item.product_name)
 
         return render_template('dashboard/product-list.html', product_items = product_items)
-
+    else:
+        return redirect(url_for('login_home_page'))         
 
 
 
@@ -123,7 +160,7 @@ def add_product():
             try:
                 db.session.add(add_new_product)
                 db.session.commit()
-                return redirect(url_for('login_home_page'))
+                return redirect(url_for('product_list'))
             except:
                 print('Srry unable to create product')
         return render_template('dashboard/add-products.html', form=form)                  
