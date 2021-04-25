@@ -124,7 +124,10 @@ def delete_cart(product_id):
         return render_template('shopping-cart.html') 
 
 
-
+@app.route('/checkout')
+@login_required
+def checkout():
+    return render_template('checkout.html')
 
 
 @app.route('/dashboard')
