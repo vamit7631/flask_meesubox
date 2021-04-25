@@ -1,7 +1,7 @@
 from meesubox import app
 from flask import render_template,request, redirect, url_for, flash
-from meesubox.models import UserModel, ProductItem, CartDetails
-from meesubox.forms import RegisterForm , LoginForm, AddProductDetails
+from meesubox.models import UserModel, ProductItem, CartDetails, CategoryModel
+from meesubox.forms import RegisterForm , LoginForm, AddProductDetails, AddCategoryDetails
 from werkzeug.security import generate_password_hash, check_password_hash
 from meesubox import db
 from flask_login import login_user, logout_user, login_required, current_user
@@ -144,10 +144,6 @@ def dashboard():
 def product_list():
     if current_user.is_authenticated and current_user.user_role == 'admin':
         product_items = ProductItem.query.all()
-        print(product_items)
-        # for product_item in product_items:
-        #     print(product_item.product_name)
-
         return render_template('dashboard/product-list.html', product_items = product_items)
     else:
         return redirect(url_for('login_home_page'))         
@@ -171,3 +167,25 @@ def add_product():
         return render_template('dashboard/add-products.html', form=form)                  
     else:
         return redirect(url_for('login_home_page'))            
+
+
+
+@app.route('/dashboard/add-category', methods=['GET', 'POST'])
+@login_required
+def add_category():
+    if current_user.is_authenticated and current_user.user_role == 'admin':
+        form = AddCategoryDetails()
+        if form.validate_on_submit():
+            add_new_product = CategoryModel(category_name = form.category_name.data, category_slug = form.category_name.data )
+            print('Amit test user')   
+            try:
+                db.session.add(add_new_product)
+                db.session.commit()
+                return redirect(url_for('product_list'))
+            except:
+                print('Srry unable to create category')
+        return render_template('dashboard/add-category.html', form=form)                  
+    else:
+        return redirect(url_for('login_home_page'))            
+
+

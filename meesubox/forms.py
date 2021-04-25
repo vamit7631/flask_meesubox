@@ -32,3 +32,12 @@ class AddProductDetails(FlaskForm):
     # featured_product
     best_seller = BooleanField(validators=[Optional()], render_kw={'checked': False})  
     submit = SubmitField(label='Submit')    
+
+
+
+class AddCategoryDetails(FlaskForm):
+        category_name = StringField(label='Category name', validators=[DataRequired()]) 
+        category_slug = StringField(label='Category slug', validators=[DataRequired()]) 
+        submit = SubmitField(label='Submit') 
+
+

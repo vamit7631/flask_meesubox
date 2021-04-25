@@ -54,4 +54,17 @@ class CartDetails(db.Model):
     user_id = db.Column(db.Integer(), db.ForeignKey('user_model.id'))
 
     def __repr__(self):
-        return f'CartDetails {self.product_name}'     
+        return f'CartDetails {self.product_name}' 
+
+
+
+class CategoryModel(db.Model):
+    category_id = db.Column(db.Integer(), primary_key=True)
+    category_name = db.Column(db.String(length=200), nullable=False)
+    category_slug = db.Column(db.String(length=200), nullable=False)
+    category_level = db.Column(db.Integer(), default = 0)
+    date_created = db.Column(db.DateTime, default = datetime.utcnow)
+
+
+    def __repr__(self):
+        return f'CategoryModel {self.category_name}'     
