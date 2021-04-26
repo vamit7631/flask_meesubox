@@ -170,21 +170,53 @@ def add_product():
 
 
 
+
+
+@app.route('/dashboard/category-list', methods=['GET', 'POST'])
+@login_required
+def category_list():
+    if current_user.is_authenticated and current_user.user_role == 'admin':
+        category_lists = CategoryModel.query.all()
+        return render_template('dashboard/category-list.html', category_lists = category_lists)
+    else:
+        return redirect(url_for('login_home_page'))    
+
+
 @app.route('/dashboard/add-category', methods=['GET', 'POST'])
 @login_required
 def add_category():
     if current_user.is_authenticated and current_user.user_role == 'admin':
         form = AddCategoryDetails()
+        category_lists = CategoryModel.query.all()
+        category_level = 0
+        add_new_category = ''
         if form.validate_on_submit():
-            add_new_product = CategoryModel(category_name = form.category_name.data, category_slug = form.category_name.data )
-            print('Amit test user')   
+            print(form.data,"--------------------------------Amit")
+            is_parent_category = CategoryModel.query.filter_by(category_id = form.parent_category.data).first()
+            if(is_parent_category == None):
+                print(is_parent_category,"--------------------------------Ashwini")
+                add_new_category = CategoryModel(category_name = form.category_name.data, category_slug = form.category_slug.data, assign_parent_category = form.assign_parent_category.data, category_level = category_level, parent_category = form.parent_category.data )
+            else:
+
+                print(is_parent_category ,"-----------------------------------------Poorva")    
+            
+                if is_parent_category.category_level == (category_level + 1) and form.assign_parent_category.data == 1:
+                    category_level = is_parent_category.category_level + 1
+                    print(category_level,"category_level------------------------")
+                    add_new_category = CategoryModel(category_name = form.category_name.data, category_slug = form.category_slug.data, assign_parent_category = form.assign_parent_category.data, category_level = category_level, parent_category = form.parent_category.data ) 
+                elif is_parent_category.category_level == category_level and form.assign_parent_category.data == 1:
+                    category_level = is_parent_category.category_level + 1
+                    print(category_level,"category_level2-----------------------")  
+                    add_new_category = CategoryModel(category_name = form.category_name.data, category_slug = form.category_slug.data, assign_parent_category = form.assign_parent_category.data, category_level = category_level, parent_category = form.parent_category.data )
             try:
-                db.session.add(add_new_product)
+                db.session.add(add_new_category)
                 db.session.commit()
-                return redirect(url_for('product_list'))
+                return redirect(url_for('category_list'))
             except:
-                print('Srry unable to create category')
-        return render_template('dashboard/add-category.html', form=form)                  
+                print('Srry unable to create category')                          
+        return render_template('dashboard/add-category.html', form = form, category_lists = category_lists)
+        # if form.validate_on_submit():
+        #     if category_list
     else:
         return redirect(url_for('login_home_page'))            
 

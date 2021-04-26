@@ -63,6 +63,32 @@
                                                 {{ form.category_slug.label() }}<span style="color: red;"> *</span>
                                                 <input id="category_slug" name="category_slug" type="text" aria-required="true" aria-invalid="false" class="form-control">
                                             </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-12">
+                                                    <div class="form-check">
+                                                        <div class="checkbox">
+                                                            <label for="New Product" class="form-check-label ">
+                                                                <input type="checkbox" id="assign_parent_category" name="assign_parent_category" class="form-check-input">Assign Parent Category
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                {{ form.parent_category.label() }}
+                                                
+                                                    <select name="parent_category" id="parent_category" class="form-control">
+                                                        <option value="0">Please select</option>
+                                                        {% for category_list in category_lists  %}               
+                                                        <option value="{{ category_list.category_id }}">{{ category_list.category_name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                
+                                            </div>
+
+
+
+
                                             <div>
                                                 {{ form.submit(class="btn btn-lg btn-info") }}
                                             </div>

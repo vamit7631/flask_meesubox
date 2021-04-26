@@ -38,6 +38,8 @@ class AddProductDetails(FlaskForm):
 class AddCategoryDetails(FlaskForm):
         category_name = StringField(label='Category name', validators=[DataRequired()]) 
         category_slug = StringField(label='Category slug', validators=[DataRequired()]) 
+        parent_category = IntegerField(label='Parent Category', validators=[Optional()])
+        assign_parent_category = BooleanField(validators=[Optional()], render_kw={'checked': False})  
         submit = SubmitField(label='Submit') 
 
 
