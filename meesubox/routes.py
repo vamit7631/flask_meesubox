@@ -195,8 +195,14 @@ def add_product():
         return redirect(url_for('login_home_page'))            
 
 
-
-
+@app.route('/dashboard/edit-product/<int:product_id>', methods=['GET', 'POST'])
+@login_required
+def edit_product(product_id):
+    if current_user.is_authenticated and current_user.user_role == 'admin':
+        form = AddProductDetails()
+        return render_template('dashboard/edit-products.html', form = form)
+    else:
+        return redirect(url_for('login_home_page'))                     
 
 @app.route('/dashboard/category-list', methods=['GET', 'POST'])
 @login_required
