@@ -93,9 +93,9 @@ def wishlist():
     return render_template('wishlist.html')    
 
 
-@app.route('/category')
+@app.route('/category/<int:category_id>')
 @login_required
-def product_category():
+def product_category(category_id):
     category_details = categoryfn()   
     return render_template('category.html', category_details = category_details)  
 
