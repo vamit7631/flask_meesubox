@@ -6,15 +6,19 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from meesubox import db
 from flask_login import login_user, logout_user, login_required, current_user
 
-def categoryfn(category_id = 1):
-        topq = db.session.query(CategoryModel).\
-        filter(CategoryModel.category_id == category_id)
-        topq = topq.cte('cte', recursive=True)
-        bottomq = db.session.query(CategoryModel)  
-        bottomq = bottomq.join(topq, CategoryModel.parent_category == topq.c.category_id)
-        recursive_q = topq.union(bottomq)
-        category_details = db.session.query(recursive_q)
-        return category_details
+def categoryfn():
+        catval = []
+        category_items = CategoryModel.query.filter_by(category_level = 0).all()
+        for category_item in category_items:
+            topq = db.session.query(CategoryModel).\
+            filter(CategoryModel.category_id == category_item.category_id)
+            topq = topq.cte('cte', recursive=True)
+            bottomq = db.session.query(CategoryModel)  
+            bottomq = bottomq.join(topq, CategoryModel.parent_category == topq.c.category_id)
+            recursive_q = topq.union(bottomq)
+            category_details = db.session.query(recursive_q)
+            catval.append(category_details) 
+        return catval
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -22,20 +26,19 @@ def home_page():
     if request.method == "GET":
           new_product_items = ProductItem.query.filter_by(new_product = 1).all()
           best_product_items = ProductItem.query.filter_by(best_seller = 1).all()
-          category_details = categoryfn()     
-    return render_template('home.html', new_product_items = new_product_items, best_seller_items = best_product_items , category_details = category_details)
+          catval = categoryfn()  
+    return render_template('home.html', new_product_items = new_product_items, best_seller_items = best_product_items , category_details = catval)
 
 
 
 @app.route('/home', methods=['GET', 'POST'])
 @login_required
-def login_home_page(category_id = 1):
- 
+def login_home_page():
     if request.method == "GET":
         new_product_items = ProductItem.query.filter_by(new_product = 1).all()
         best_product_items = ProductItem.query.filter_by(best_seller = 1).all()
-        category_details = categoryfn()     
-    return render_template('home.html', name=current_user.firstname, new_product_items = new_product_items, best_seller_items = best_product_items , category_details = category_details)
+        catval = categoryfn()  
+    return render_template('home.html', name=current_user.firstname, new_product_items = new_product_items, best_seller_items = best_product_items , category_details = catval)
 
 
 @app.route('/signup', methods=['GET', 'POST'])
