@@ -63,7 +63,7 @@ class CategoryModel(db.Model):
     category_name = db.Column(db.String(length=200), nullable=False)
     category_slug = db.Column(db.String(length=200), nullable=False)
     category_level = db.Column(db.Integer(), default = 0)
-    parent_category = db.Column(db.Integer(), default = 0)
+    parent_category = db.Column(db.Integer())
     assign_parent_category = db.Column(db.Boolean(), default = False)
     date_created = db.Column(db.DateTime, default = datetime.utcnow)
 

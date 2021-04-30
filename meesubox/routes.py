@@ -6,20 +6,36 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from meesubox import db
 from flask_login import login_user, logout_user, login_required, current_user
 
+def categoryfn(category_id = 1):
+        topq = db.session.query(CategoryModel).\
+        filter(CategoryModel.category_id == category_id)
+        topq = topq.cte('cte', recursive=True)
+        bottomq = db.session.query(CategoryModel)  
+        bottomq = bottomq.join(topq, CategoryModel.parent_category == topq.c.category_id)
+        recursive_q = topq.union(bottomq)
+        category_details = db.session.query(recursive_q)
+        return category_details
+
+
 @app.route('/', methods=['GET', 'POST'])
 def home_page():
     if request.method == "GET":
           new_product_items = ProductItem.query.filter_by(new_product = 1).all()
           best_product_items = ProductItem.query.filter_by(best_seller = 1).all()
-    return render_template('home.html', new_product_items = new_product_items, best_seller_items = best_product_items)
+          category_details = categoryfn()     
+    return render_template('home.html', new_product_items = new_product_items, best_seller_items = best_product_items , category_details = category_details)
+
+
 
 @app.route('/home', methods=['GET', 'POST'])
 @login_required
-def login_home_page():
+def login_home_page(category_id = 1):
+ 
     if request.method == "GET":
-          new_product_items = ProductItem.query.filter_by(new_product = 1).all()
-          best_product_items = ProductItem.query.filter_by(best_seller = 1).all()
-    return render_template('home.html', name=current_user.firstname, new_product_items = new_product_items, best_seller_items = best_product_items)
+        new_product_items = ProductItem.query.filter_by(new_product = 1).all()
+        best_product_items = ProductItem.query.filter_by(best_seller = 1).all()
+        category_details = categoryfn()     
+    return render_template('home.html', name=current_user.firstname, new_product_items = new_product_items, best_seller_items = best_product_items , category_details = category_details)
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -75,13 +91,20 @@ def logout_page():
 @login_required
 def wishlist():
     return render_template('wishlist.html')    
-  
+
+
+@app.route('/category')
+@login_required
+def product_category():
+    category_details = categoryfn()   
+    return render_template('category.html', category_details = category_details)  
+
 
 @app.route('/single-product/<int:product_id>', methods=['GET', 'POST'])
 @login_required
 def single_product(product_id):
     if request.method == "GET":
-          product_item = ProductItem.query.filter_by(product_id = product_id).first()
+        product_item = ProductItem.query.filter_by(product_id = product_id).first()
     return render_template('single-product.html', product_item = product_item)
 
 
@@ -191,22 +214,15 @@ def add_category():
         category_level = 0
         add_new_category = ''
         if form.validate_on_submit():
-            print(form.data,"--------------------------------Amit")
             is_parent_category = CategoryModel.query.filter_by(category_id = form.parent_category.data).first()
             if(is_parent_category == None):
-                print(is_parent_category,"--------------------------------Ashwini")
                 add_new_category = CategoryModel(category_name = form.category_name.data, category_slug = form.category_slug.data, assign_parent_category = form.assign_parent_category.data, category_level = category_level, parent_category = form.parent_category.data )
             else:
-
-                print(is_parent_category ,"-----------------------------------------Poorva")    
-            
                 if is_parent_category.category_level == (category_level + 1) and form.assign_parent_category.data == 1:
                     category_level = is_parent_category.category_level + 1
-                    print(category_level,"category_level------------------------")
                     add_new_category = CategoryModel(category_name = form.category_name.data, category_slug = form.category_slug.data, assign_parent_category = form.assign_parent_category.data, category_level = category_level, parent_category = form.parent_category.data ) 
                 elif is_parent_category.category_level == category_level and form.assign_parent_category.data == 1:
                     category_level = is_parent_category.category_level + 1
-                    print(category_level,"category_level2-----------------------")  
                     add_new_category = CategoryModel(category_name = form.category_name.data, category_slug = form.category_slug.data, assign_parent_category = form.assign_parent_category.data, category_level = category_level, parent_category = form.parent_category.data )
             try:
                 db.session.add(add_new_category)

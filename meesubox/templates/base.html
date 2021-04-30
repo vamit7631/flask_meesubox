@@ -342,6 +342,39 @@
 		</div><!-- /.yamm-content -->					</li>
 						</ul>
 					</li>
+					{% for category_detail in category_details  %}
+					{% if category_detail.category_level == 0 %}
+						<li class="dropdown yamm">
+							<a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">{{ category_detail.category_name }}</a>
+							<ul class="dropdown-menu">
+								<li>
+									<div class="yamm-content">
+										<div class="row">
+											<div class='col-sm-12'>
+												{% for sub_category_detail in category_details  %}
+												{% if sub_category_detail.category_level == 1 and sub_category_detail.parent_category == category_detail.category_id  %}
+												<div class="col-xs-12 col-sm-12 col-md-4">
+													<h2 class="title">{{ sub_category_detail.category_name }}</h2>
+													<ul>
+														{% for child_category_detail in category_details  %}
+														{% if child_category_detail.category_level == 2 and child_category_detail.parent_category == sub_category_detail.category_id    %}
+														<li>
+															<a href="#">{{ child_category_detail.category_name }}</a>
+														</li>
+														{% endif %}
+														{% endfor %}
+													</ul>
+												</div>
+												{% endif %}
+												{% endfor %}
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</li>
+					{% endif %}
+					{% endfor %}
 					<li class="dropdown yamm">
 						<a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Desktop</a>
 						<ul class="dropdown-menu">
