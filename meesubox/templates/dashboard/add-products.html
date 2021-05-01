@@ -31,7 +31,7 @@
 
 
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-9">
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title">Add Product</strong>
@@ -107,9 +107,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row form-group">
-                                                <div class="col col-md-3"><label for="Product description" class=" form-control-label">Product description</label></div>
-                                                <div class="col-12 col-md-9"><textarea name="product_description" id="product_description" rows="9" class="form-control"></textarea></div>
+                                            <div class="form-group">
+                                                <label for="Product description" class=" form-control-label">Product description</label>
+                                                <div class="row">
+                                                    <div class="col-12 col-md-12"><textarea name="product_description" id="product_description" rows="9" class="form-control"></textarea></div>
+                                                </div>
+                                                
                                             </div>
                                             <div>
                                                 {{ form.submit(class="btn btn-lg btn-info") }}
@@ -123,7 +126,7 @@
 
                     </div><!--/.col-->
 
-                    <div class="col-lg-6">
+                    <div class="col-lg-3">
                         <div class="card">
                             <div class="card-header"><strong>Company</strong><small> Form</small></div>
                             <div class="card-body card-block">

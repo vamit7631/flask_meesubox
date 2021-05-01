@@ -27,7 +27,7 @@ class ProductItem(db.Model):
     product_category = db.Column(db.String(length=50), nullable=False)
     product_size = db.Column(db.String(length=50), nullable=False)
     # product_colour = db.Column(db.String(length=50), nullable=False)
-    product_description = db.Column(db.String(length=1000), nullable=False)
+    product_description = db.Column(db.Text, nullable=False)
     quantity = db.Column(db.Integer(), nullable=False)
     product_discount = db.Column(db.String(length=200), nullable=False)
     # sku_id = db.Column(db.BigInteger(), nullable=False)

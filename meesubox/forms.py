@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, IntegerField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField, BooleanField, TextAreaField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, Optional
 from meesubox.models import UserModel, ProductItem
 
@@ -22,7 +22,7 @@ class AddProductDetails(FlaskForm):
     product_price = StringField(label='Product price', validators=[DataRequired()]) 
     product_category = StringField(label='Product category', validators=[DataRequired()])
     product_size = StringField(label='Product size', validators=[DataRequired()])
-    product_description = StringField(label='Product description', validators=[DataRequired()])
+    product_description = TextAreaField(label='Product description', validators=[DataRequired()])
     quantity = IntegerField(label='Quantity', validators=[DataRequired()])
     product_discount = StringField(label='Product discount', validators=[DataRequired()]) 
     # sku_id 

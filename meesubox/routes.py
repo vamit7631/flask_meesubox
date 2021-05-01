@@ -5,7 +5,7 @@ from meesubox.forms import RegisterForm , LoginForm, AddProductDetails, AddCateg
 from werkzeug.security import generate_password_hash, check_password_hash
 from meesubox import db
 from flask_login import login_user, logout_user, login_required, current_user
-
+import bleach
 def categoryfn():
         catval = []
         category_items = CategoryModel.query.filter_by(category_level = 0).all()
@@ -182,8 +182,8 @@ def add_product():
     if current_user.is_authenticated and current_user.user_role == 'admin':
         form = AddProductDetails()
         if form.validate_on_submit():
-            add_new_product = ProductItem(product_name = form.product_name.data, product_price = form.product_price.data, product_category = form.product_category.data, product_size = form.product_size.data, product_description = form.product_description.data, quantity = form.quantity.data, product_discount = form.product_discount.data, store_name = form.store_name.data, new_product = form.new_product.data, best_seller = form.best_seller.data )
-            print('Amit test user')   
+            formatted_data = bleach.clean(form.product_description.data, tags = bleach.sanitizer.ALLOWED_TAGS + ['h1', 'br', 'div', 'p', 'span','br'])
+            add_new_product = ProductItem(product_name = form.product_name.data, product_price = form.product_price.data, product_category = form.product_category.data, product_size = form.product_size.data, product_description = formatted_data, quantity = form.quantity.data, product_discount = form.product_discount.data, store_name = form.store_name.data, new_product = form.new_product.data, best_seller = form.best_seller.data ) 
             try:
                 db.session.add(add_new_product)
                 db.session.commit()
