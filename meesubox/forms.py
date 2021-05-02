@@ -20,18 +20,20 @@ class LoginForm(FlaskForm):
 class AddProductDetails(FlaskForm):
     product_name = StringField(label='Product name', validators=[DataRequired()]) 
     product_price = StringField(label='Product price', validators=[DataRequired()]) 
-    product_category = StringField(label='Product category', validators=[DataRequired()])
+    # product_category = StringField(label='Product category', validators=[DataRequired()])
     product_size = StringField(label='Product size', validators=[DataRequired()])
     product_description = TextAreaField(label='Product description', validators=[DataRequired()])
     quantity = IntegerField(label='Quantity', validators=[DataRequired()])
     product_discount = StringField(label='Product discount', validators=[DataRequired()]) 
+    sub_category_value = IntegerField(validators=[Optional()])
+    child_category_value = IntegerField(validators=[Optional()])
     # sku_id 
     # store_id
     store_name = StringField(label='Store name', validators=[DataRequired()]) 
     new_product = BooleanField(validators=[Optional()], render_kw={'checked': False}) 
     # featured_product
     best_seller = BooleanField(validators=[Optional()], render_kw={'checked': False})  
-    submit = SubmitField(label='Submit')    
+    submit = SubmitField(label='Publish')    
 
 
 

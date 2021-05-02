@@ -2579,3 +2579,11 @@ footer.site-footer {
 .active {
   display: block;
 }
+
+
+.category_value{
+    margin-top: 15px;
+    z-index: 999;
+    left: -25px;
+    position: absolute;
+}

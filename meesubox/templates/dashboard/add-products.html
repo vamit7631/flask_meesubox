@@ -29,8 +29,10 @@
         <div class="content">
             <div class="animated fadeIn">
 
-
+                <form action="#" method="POST">
+                    {{ form.hidden_tag() }}
                 <div class="row">
+                   
                     <div class="col-lg-8">
                         <div class="card">
                             <div class="card-header">
@@ -44,8 +46,7 @@
                                             <h3 class="text-center">Pay Invoice</h3>
                                         </div> 
                                         <hr>-->
-                                        <form action="#" method="POST">
-                                            {{ form.hidden_tag() }}
+                                    
                                             <!-- <div class="form-group text-center">
                                                 <ul class="list-inline">
                                                     <li class="list-inline-item"><i class="text-muted fa fa-cc-visa fa-2x"></i></li>
@@ -62,10 +63,6 @@
                                             <div class="form-group">
                                                 {{ form.product_price.label() }}<span style="color: red;"> *</span>
                                                 <input id="product_price" name="product_price" type="text" aria-required="true" aria-invalid="false" class="form-control">
-                                            </div>
-                                            <div class="form-group">
-                                                {{ form.product_category.label() }}<span style="color: red;"> *</span>
-                                                <input id="product_category" name="product_category" type="text" aria-required="true" aria-invalid="false" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 {{ form.quantity.label() }}<span style="color: red;"> *</span>
@@ -115,9 +112,9 @@
                                                 
                                             </div>
                                             <div>
-                                                {{ form.submit(class="btn btn-lg btn-info") }}
+                                               
                                             </div>
-                                        </form>
+                                       
                                     </div>
                                 </div>
 
@@ -128,7 +125,7 @@
 
                     <div class="col-lg-4">
                         <div class="card">
-                            <div class="card-header"><strong>Company</strong><small> Form</small></div>
+                            <div class="card-header"><strong>Categories</strong></div>
                             <div class="card-body card-block tree">
                                 {% for category_detail in category_details  %}
                                 {% for category_val in category_detail  %}
@@ -140,12 +137,14 @@
 												{% for sub_category_detail in category_detail  %}
 												{% if sub_category_detail.category_level == 1 and sub_category_detail.parent_category == category_val.category_id  %}
                                                 <li>
-                                                    <span class="caret"><i class="fa fa-minus-square"></i> {{ sub_category_detail.category_name }} </span> 
+                                                    <input type="checkbox" id="category_value" class = "category_value" name="sub_category_value" value="{{ sub_category_detail.category_id }}" class="form-check-input"><span class="caret"><i class="fa fa-minus-square"></i> {{ sub_category_detail.category_name }} </span> 
                                                     <ul class="nested">
                                                         {% for category_detail in category_details  %}
 														{% for child_category_detail in category_detail  %}
 														{% if child_category_detail.category_level == 2 and child_category_detail.parent_category == sub_category_detail.category_id    %}
-                                                        <li><span class="caret"><i class="fa fa-minus-square"></i> {{ child_category_detail.category_name }} </span> </li>
+                                                        <li>
+                                                            <input type="checkbox" id="category_value1" class = "category_value" name="child_category_value" value="{{ child_category_detail.category_id }}" class="form-check-input">
+                                                            <span class="caret"><i class="fa fa-minus-square"></i> {{ child_category_detail.category_name }} </span> </li>
                                                         {% endif %}
                                                         {% endfor %}
                                                         {% endfor %} 
@@ -163,8 +162,22 @@
                                 {% endfor %}      
                              </div> 
                         </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>Categories</strong>  
+                            </div>
+                            <div class="card-body card-block"> 
+                                <div class="row">
+                                    <div class="col-md-8" ><div class="publish_date"><span>Created Date : </span>  </div></div>
+                                    <div class="col-md-4" >{{ form.submit(class="btn btn-xs btn-info") }}</div>
+                                </div>
+                                                        
+                            </div>
+                        </div>
                     </div>
-
+                </div>
+            </form>
+                <div class="row">
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-header">
@@ -861,7 +874,7 @@
                     </div>
                 </div>
 
-            </div>
+                </div>
 
 
         </div><!-- .animated -->

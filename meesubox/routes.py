@@ -183,8 +183,9 @@ def add_product():
         form = AddProductDetails()
         catval = categoryfn()  
         if form.validate_on_submit():
+            
             formatted_data = bleach.clean(form.product_description.data, tags = bleach.sanitizer.ALLOWED_TAGS + ['h1', 'br', 'div', 'p', 'span','br'])
-            add_new_product = ProductItem(product_name = form.product_name.data, product_price = form.product_price.data, product_category = form.product_category.data, product_size = form.product_size.data, product_description = formatted_data, quantity = form.quantity.data, product_discount = form.product_discount.data, store_name = form.store_name.data, new_product = form.new_product.data, best_seller = form.best_seller.data ) 
+            add_new_product = ProductItem(product_name = form.product_name.data, product_price = form.product_price.data,sub_category_value = form.sub_category_value.data, child_category_value = form.child_category_value.data, product_size = form.product_size.data, product_description = formatted_data, quantity = form.quantity.data, product_discount = form.product_discount.data, store_name = form.store_name.data, new_product = form.new_product.data, best_seller = form.best_seller.data ) 
             try:
                 db.session.add(add_new_product)
                 db.session.commit()
