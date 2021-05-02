@@ -31,7 +31,7 @@
 
 
                 <div class="row">
-                    <div class="col-lg-9">
+                    <div class="col-lg-8">
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title">Add Product</strong>
@@ -126,23 +126,33 @@
 
                     </div><!--/.col-->
 
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <div class="card">
                             <div class="card-header"><strong>Company</strong><small> Form</small></div>
-                            <div class="card-body card-block">
-                                <div class="form-group"><label for="company" class=" form-control-label">Company</label><input type="text" id="company" placeholder="Enter your company name" class="form-control"></div>
-                                <div class="form-group"><label for="vat" class=" form-control-label">VAT</label><input type="text" id="vat" placeholder="DE1234567890" class="form-control"></div>
-                                <div class="form-group"><label for="street" class=" form-control-label">Street</label><input type="text" id="street" placeholder="Enter street name" class="form-control"></div>
-                                <div class="row form-group">
-                                    <div class="col-8">
-                                        <div class="form-group"><label for="city" class=" form-control-label">City</label><input type="text" id="city" placeholder="Enter your city" class="form-control"></div>
-                                    </div>
-                                    <div class="col-8">
-                                        <div class="form-group"><label for="postal-code" class=" form-control-label">Postal Code</label><input type="text" id="postal-code" placeholder="Postal Code" class="form-control"></div>
-                                    </div>
-                                </div>
-                                <div class="form-group"><label for="country" class=" form-control-label">Country</label><input type="text" id="country" placeholder="Country name" class="form-control"></div>
-                            </div>
+                            <div class="card-body card-block tree">
+                                <ul id="myUL" class="tree-product">
+                                    <li><span class="caret"> <i class="fa fa-folder-open"></i> Beverages</span>
+                                      <ul class="nested">
+                                        <li><span><i class="fa fa-minus-square"></i> Water </span> </li>
+                                        <li><span><i class="fa fa-minus-square"></i> Coffee</span></li>
+                                        <li><span class="caret"><i class="fa fa-minus-square"></i> Tea</span>
+                                          <ul class="nested">
+                                            <li><span><i class="fa fa-minus-square"></i> Black Tea</span> </li>
+                                            <li><span><i class="fa fa-minus-square"></i> White Tea</span></li>
+                                            <li><span class="caret"><i class="fa fa-minus-square"></i> Green Tea</span>
+                                              <ul class="nested">
+                                                <li><span><i class="fa fa-minus-square"></i> Sencha</span></li>
+                                                <li><span><i class="fa fa-minus-square"></i> Gyokuro</span></li>
+                                                <li><span><i class="fa fa-minus-square"></i> Matcha</span></li>
+                                                <li><span><i class="fa fa-minus-square"></i> Pi Lo Chun</span></li>
+                                              </ul>
+                                            </li>
+                                          </ul>
+                                        </li>
+                                      </ul>
+                                    </li>
+                                  </ul>
+                             </div> 
                         </div>
                     </div>
 
