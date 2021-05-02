@@ -130,28 +130,37 @@
                         <div class="card">
                             <div class="card-header"><strong>Company</strong><small> Form</small></div>
                             <div class="card-body card-block tree">
+                                {% for category_detail in category_details  %}
+                                {% for category_val in category_detail  %}
+                                {% if category_val.category_level == 0 %}
                                 <ul id="myUL" class="tree-product">
-                                    <li><span class="caret"> <i class="fa fa-folder-open"></i> Beverages</span>
-                                      <ul class="nested">
-                                        <li><span><i class="fa fa-minus-square"></i> Water </span> </li>
-                                        <li><span><i class="fa fa-minus-square"></i> Coffee</span></li>
-                                        <li><span class="caret"><i class="fa fa-minus-square"></i> Tea</span>
-                                          <ul class="nested">
-                                            <li><span><i class="fa fa-minus-square"></i> Black Tea</span> </li>
-                                            <li><span><i class="fa fa-minus-square"></i> White Tea</span></li>
-                                            <li><span class="caret"><i class="fa fa-minus-square"></i> Green Tea</span>
-                                              <ul class="nested">
-                                                <li><span><i class="fa fa-minus-square"></i> Sencha</span></li>
-                                                <li><span><i class="fa fa-minus-square"></i> Gyokuro</span></li>
-                                                <li><span><i class="fa fa-minus-square"></i> Matcha</span></li>
-                                                <li><span><i class="fa fa-minus-square"></i> Pi Lo Chun</span></li>
-                                              </ul>
-                                            </li>
-                                          </ul>
-                                        </li>
-                                      </ul>
+                                    <li><span class="caret"> <i class="fa fa-folder-open"></i> {{ category_val.category_name }}</span>
+                                        <ul class="nested">
+                                            {% for category_detail in category_details  %}
+												{% for sub_category_detail in category_detail  %}
+												{% if sub_category_detail.category_level == 1 and sub_category_detail.parent_category == category_val.category_id  %}
+                                                <li>
+                                                    <span class="caret"><i class="fa fa-minus-square"></i> {{ sub_category_detail.category_name }} </span> 
+                                                    <ul class="nested">
+                                                        {% for category_detail in category_details  %}
+														{% for child_category_detail in category_detail  %}
+														{% if child_category_detail.category_level == 2 and child_category_detail.parent_category == sub_category_detail.category_id    %}
+                                                        <li><span class="caret"><i class="fa fa-minus-square"></i> {{ child_category_detail.category_name }} </span> </li>
+                                                        {% endif %}
+                                                        {% endfor %}
+                                                        {% endfor %} 
+                                                    </ul>
+                                                </li>
+                                                {% endif %}
+                                                {% endfor %}
+                                                {% endfor %}  
+
+                                        </ul>
                                     </li>
-                                  </ul>
+                                </ul>  
+                                {% endif %}
+                                {% endfor %}
+                                {% endfor %}      
                              </div> 
                         </div>
                     </div>

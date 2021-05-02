@@ -181,6 +181,7 @@ def product_list():
 def add_product():
     if current_user.is_authenticated and current_user.user_role == 'admin':
         form = AddProductDetails()
+        catval = categoryfn()  
         if form.validate_on_submit():
             formatted_data = bleach.clean(form.product_description.data, tags = bleach.sanitizer.ALLOWED_TAGS + ['h1', 'br', 'div', 'p', 'span','br'])
             add_new_product = ProductItem(product_name = form.product_name.data, product_price = form.product_price.data, product_category = form.product_category.data, product_size = form.product_size.data, product_description = formatted_data, quantity = form.quantity.data, product_discount = form.product_discount.data, store_name = form.store_name.data, new_product = form.new_product.data, best_seller = form.best_seller.data ) 
@@ -190,7 +191,7 @@ def add_product():
                 return redirect(url_for('product_list'))
             except:
                 print('Srry unable to create product')
-        return render_template('dashboard/add-products.html', form=form)                  
+        return render_template('dashboard/add-products.html', form=form,  category_details = catval)                  
     else:
         return redirect(url_for('login_home_page'))            
 
