@@ -5,6 +5,7 @@ from meesubox.forms import RegisterForm , LoginForm, AddProductDetails, AddCateg
 from werkzeug.security import generate_password_hash, check_password_hash
 from meesubox import db
 from flask_login import login_user, logout_user, login_required, current_user
+from sqlalchemy import or_
 import bleach
 def categoryfn():
         catval = []
@@ -182,10 +183,20 @@ def add_product():
     if current_user.is_authenticated and current_user.user_role == 'admin':
         form = AddProductDetails()
         catval = categoryfn()  
+        parent_category = ''
         if form.validate_on_submit():
-            
+            is_parent_category = CategoryModel.query.filter(or_(CategoryModel.category_id == form.sub_category_value.data, CategoryModel.category_id == form.child_category_value.data)).first()
+            print(is_parent_category.category_level,"-------------------------------------------",is_parent_category.parent_category)            
+            if is_parent_category.category_level == 1:
+                form.sub_category_value.data = is_parent_category.category_id
+                parent_category = is_parent_category.parent_category
+            elif is_parent_category.category_level == 2:    
+                form.child_category_value.data = is_parent_category.category_id
+                form.sub_category_value.data = is_parent_category.parent_category
+                main_parent_category = CategoryModel.query.filter_by(category_id = form.sub_category_value.data).first() 
+                parent_category = main_parent_category.parent_category
             formatted_data = bleach.clean(form.product_description.data, tags = bleach.sanitizer.ALLOWED_TAGS + ['h1', 'br', 'div', 'p', 'span','br'])
-            add_new_product = ProductItem(product_name = form.product_name.data, product_price = form.product_price.data,sub_category_value = form.sub_category_value.data, child_category_value = form.child_category_value.data, product_size = form.product_size.data, product_description = formatted_data, quantity = form.quantity.data, product_discount = form.product_discount.data, store_name = form.store_name.data, new_product = form.new_product.data, best_seller = form.best_seller.data ) 
+            add_new_product = ProductItem(product_name = form.product_name.data, product_price = form.product_price.data,product_category = parent_category,sub_category_value = form.sub_category_value.data, child_category_value = form.child_category_value.data, product_size = form.product_size.data, product_description = formatted_data, quantity = form.quantity.data, product_discount = form.product_discount.data, store_name = form.store_name.data, new_product = form.new_product.data, best_seller = form.best_seller.data ) 
             try:
                 db.session.add(add_new_product)
                 db.session.commit()
