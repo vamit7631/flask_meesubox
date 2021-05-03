@@ -1039,7 +1039,7 @@ a {
   background: rgba(0, 0, 0, 0);
 }
 .main-header {
-  padding: 50px 0px 60px 0px;
+  padding: 10px 0px 0px 0px;
 }
 .main-header .logo-holder {
   margin-top: 10px;
@@ -1245,9 +1245,9 @@ a {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
   color: #FFFFFF;
   font-family: 'FjallaOneRegular';
-  font-size: 20px;
+  font-size: 18px;
   line-height: 20px;
-  padding: 21px 29px;
+  padding: 15px 25px;
   text-transform: uppercase;
   -webkit-transitio: all 0.2s linear 0s;
   -moz-transition: all 0.2s linear 0s;
@@ -4750,7 +4750,7 @@ a {
 }
 .shopping-cart .shopping-cart-table table tbody tr .romove-item a:hover,
 .shopping-cart .shopping-cart-table table tbody tr .romove-item a:focus {
-  color: #ff000 !important;
+  color: #fff000 !important;
 }
 .shopping-cart .shopping-cart-table table tbody tr .cart-image .entry-thumbnail {
   display: block;
