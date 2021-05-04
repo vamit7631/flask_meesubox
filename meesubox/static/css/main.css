@@ -1047,6 +1047,7 @@ a {
 .main-header .top-search-holder .contact-row {
   line-height: 20px;
   color: #9b9b9b;
+  margin-top: 55px;
 }
 .main-header .top-search-holder .contact-row .phone {
   margin: 0 23px 0 0;
@@ -1139,6 +1140,7 @@ a {
 }
 .top-cart-row {
   padding-top: 31px;
+  margin-top: 55px;
 }
 .top-cart-row .dropdown-cart {
   float: right;
