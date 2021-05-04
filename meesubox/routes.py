@@ -185,8 +185,7 @@ def add_product():
         catval = categoryfn()  
         parent_category = ''
         if form.validate_on_submit():
-            is_parent_category = CategoryModel.query.filter(or_(CategoryModel.category_id == form.sub_category_value.data, CategoryModel.category_id == form.child_category_value.data)).first()
-            print(is_parent_category.category_level,"-------------------------------------------",is_parent_category.parent_category)            
+            is_parent_category = CategoryModel.query.filter(or_(CategoryModel.category_id == form.sub_category_value.data, CategoryModel.category_id == form.child_category_value.data)).first()          
             if is_parent_category.category_level == 1:
                 form.sub_category_value.data = is_parent_category.category_id
                 parent_category = is_parent_category.parent_category
@@ -213,7 +212,9 @@ def add_product():
 def edit_product(product_id):
     if current_user.is_authenticated and current_user.user_role == 'admin':
         form = AddProductDetails()
-        return render_template('dashboard/edit-products.html', form = form)
+        catval = categoryfn()  
+        product_details = ProductItem.query.filter_by(product_id = product_id).first() 
+        return render_template('dashboard/edit-products.html', form = form, category_details = catval, product_details = product_details)
     else:
         return redirect(url_for('login_home_page'))                     
 
